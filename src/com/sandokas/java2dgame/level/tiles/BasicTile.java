@@ -7,8 +7,8 @@ public class BasicTile extends Tile {
 	
 	protected int tileId;
 
-	public BasicTile(int id, int x, int y) {
-		super(id, false, false);
+	public BasicTile(int id, int x, int y, int colour) {
+		super(id, false, false, colour);
 		this.tileId = x+y;
 		// TODO Auto-generated constructor stub
 	}

@@ -6,19 +6,21 @@ import com.sandokas.java2dgame.level.Level;
 public abstract class Tile {
 
 	public static final Tile[] tiles = new Tile[256];
-	public static final Tile VOID = new BasicSolidTile(0,0,0);
-	public static final Tile STONE = new BasicSolidTile(1,1,0);
-	public static final Tile GRASS = new BasicTile(2,2,0);
+	public static final Tile VOID = new BasicSolidTile(0,0,0, 0xffff00ff);
+	public static final Tile STONE = new BasicSolidTile(1,1,0, 0xff555555);
+	public static final Tile GRASS = new BasicTile(2,2,0, 0xff00ff00);
 
 	protected byte id;
 	protected boolean solid;
 	protected boolean emitter;
+	private int colour;
 	
-	public Tile (int id, boolean isSolid, boolean isEmitter) {
+	public Tile (int id, boolean isSolid, boolean isEmitter, int colour) {
 		this.id = (byte) id;
 		if (tiles[id] != null) throw new RuntimeException("Duplicate tile id on " + id);
 		this.solid = isSolid;
 		this.emitter = isEmitter;
+		this.colour = colour;
 		tiles[id] = this;
 	}
 	
@@ -30,6 +32,10 @@ public abstract class Tile {
 
 	public boolean isSolid(Tile newTile) {
 		return solid;
+	}
+
+	public int getColour() {
+		return colour;
 	} 
 
 }
