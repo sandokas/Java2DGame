@@ -87,6 +87,12 @@ public class Level {
 		for (Entity e : entities) {
 			e.tick();
 		}
+		for (Tile t: Tile.tiles) {
+			if (t == null) {
+				break;
+			}
+			t.tick();
+		}
 	}
 	public void generateLevel() {
 		for (int y = 0; y<height; y++) {

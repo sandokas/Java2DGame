@@ -7,6 +7,8 @@ import com.sandokas.java2dgame.level.Level;
 public class Player extends Mob{
 
 	private InputHandler input;
+	protected boolean isSwimming = false;
+	
 	public Player(Level level, String name, int x, int y, InputHandler input) {
 		super(level, "Player", x, y, 1);
 		this.input = input;
@@ -53,7 +55,13 @@ public class Player extends Mob{
 		} else {
 			isMoving = false;
 		}
-	}
+		if (level.getTile(this.x >>3, this.y>>3).getId() == 3) {
+			isSwimming = true;
+		}
+		if (isSwimming && level.getTile(this.x >>3, this.y>>3).getId() != 3) {
+			isSwimming = false;
+		}
+	} 
 
 	@Override
 	public void render(Screen screen) {
@@ -82,8 +90,10 @@ public class Player extends Mob{
 		screen.render(xOffset + (modifier *flipTop), yOffset, xTile + yTile * 32, flipTop);
 		screen.render(xOffset + modifier - (modifier *flipTop), yOffset, xTile + 1 + yTile * 32, flipTop);
 		
-		screen.render(xOffset + (modifier *flipBottom), yOffset + modifier, xTile + (yTile + 1) * 32, flipBottom);
-		screen.render(xOffset + modifier - (modifier *flipBottom), yOffset + modifier, xTile + 1 + (yTile + 1) * 32, flipBottom);
+		if (!isSwimming) {
+			screen.render(xOffset + (modifier *flipBottom), yOffset + modifier, xTile + (yTile + 1) * 32, flipBottom);
+			screen.render(xOffset + modifier - (modifier *flipBottom), yOffset + modifier, xTile + 1 + (yTile + 1) * 32, flipBottom);
+		}
 	}
 
 }
