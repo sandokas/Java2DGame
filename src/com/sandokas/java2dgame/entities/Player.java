@@ -102,7 +102,7 @@ public class Player extends Mob{
 				yOffset -= 1;
 				waterColour = 1 + 32*6;			
 			}
-				
+			
 			screen.render(xOffset, yOffset + 3, waterColour, 0x00);
 			screen.render(xOffset + 8, yOffset + 3, waterColour, 0x01);
 		}
