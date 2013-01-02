@@ -8,6 +8,7 @@ public class Player extends Mob{
 
 	private InputHandler input;
 	protected boolean isSwimming = false;
+	private int tickCount =0;
 	
 	public Player(Level level, String name, int x, int y, InputHandler input) {
 		super(level, "Player", x, y, 1);
@@ -61,6 +62,7 @@ public class Player extends Mob{
 		if (isSwimming && level.getTile(this.x >>3, this.y>>3).getId() != 3) {
 			isSwimming = false;
 		}
+		tickCount++;
 	} 
 
 	@Override
@@ -86,6 +88,24 @@ public class Player extends Mob{
 		int modifier = 8 * scale;
 		int xOffset = x - modifier/2;
 		int yOffset = y - modifier/2 -4;
+		
+		if (isSwimming) {
+			int waterColour = 0;
+			yOffset += 4;
+			if ((tickCount % 60) < 15) {
+				waterColour = 3 + 32*6;
+			} else if ((tickCount % 60) >= 15 && (tickCount % 60) < 30) {
+				waterColour = 1 + 32*6;
+			} else if ((tickCount % 60) >= 30 && (tickCount % 60) < 45) {
+				waterColour = 0 + 32*6;
+			} else {
+				yOffset -= 1;
+				waterColour = 1 + 32*6;			
+			}
+				
+			screen.render(xOffset, yOffset + 3, waterColour, 0x00);
+			screen.render(xOffset + 8, yOffset + 3, waterColour, 0x01);
+		}
 		
 		screen.render(xOffset + (modifier *flipTop), yOffset, xTile + yTile * 32, flipTop);
 		screen.render(xOffset + modifier - (modifier *flipTop), yOffset, xTile + 1 + yTile * 32, flipTop);
