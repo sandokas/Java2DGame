@@ -93,6 +93,7 @@ public class Player extends Mob{
 			int waterColour = 0;
 			yOffset += 4;
 			if ((tickCount % 60) < 15) {
+				yOffset -= 1;
 				waterColour = 3 + 32*6;
 			} else if ((tickCount % 60) >= 15 && (tickCount % 60) < 30) {
 				waterColour = 1 + 32*6;
